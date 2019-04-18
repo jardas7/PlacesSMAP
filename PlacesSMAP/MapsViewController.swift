@@ -21,7 +21,25 @@ class MapsViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
+    @IBOutlet weak var btn: UIBarButtonItem!
     var selectedPin:MKPlacemark? = nil
+    
+    @IBAction func showPosition(_ sender: Any) {
+        let span = MKCoordinateSpan(latitudeDelta: 0.015, longitudeDelta: 0.015)
+        let region = MKCoordinateRegion(center: mapView.userLocation.coordinate, span: span)
+        mapView.setRegion(region, animated: true)
+        
+        let mapCamera = MKMapCamera()
+        mapCamera.centerCoordinate = mapView.userLocation.coordinate
+        mapCamera.pitch = 45
+        mapCamera.altitude = 500 // example altitude
+        mapCamera.heading = 45
+        
+        // set the camera property
+        mapView.camera = mapCamera
+
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +47,10 @@ class MapsViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
+        
+        mapView.mapType = MKMapType.standard
+        mapView.showsBuildings = true // displays buildings
+
         
         let locationSearch = storyboard!.instantiateViewController(withIdentifier: "LocationSearch") as! LocationSearch
         resultSearchController = UISearchController(searchResultsController: locationSearch)
@@ -46,6 +68,14 @@ class MapsViewController: UIViewController {
         
         locationSearch.mapView = mapView
         locationSearch.handleMapSearchDelegate = self
+    }
+    
+    @objc func getDirections(){
+        if let selectedPin = selectedPin {
+            let mapItem = MKMapItem(placemark: selectedPin)
+            let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
+            mapItem.openInMaps(launchOptions: launchOptions)
+        }
     }
 }
 
@@ -83,11 +113,41 @@ extension MapsViewController: HandleMapSearch {
         annotation.title = placemark.name
         if let city = placemark.locality,
             let state = placemark.administrativeArea {
-            annotation.subtitle = "(city) (state)"
+            annotation.subtitle = city
         }
         mapView.addAnnotation(annotation)
         let span = MKCoordinateSpan(latitudeDelta: 0.015, longitudeDelta: 0.015)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         mapView.setRegion(region, animated: true)
+        
+        
+        let mapCamera = MKMapCamera()
+        mapCamera.centerCoordinate = region.center
+        mapCamera.pitch = 45
+        mapCamera.altitude = 500 // example altitude
+        mapCamera.heading = 45
+        
+        // set the camera property
+        mapView.camera = mapCamera
+    }
+}
+
+extension MapsViewController : MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
+        if annotation is MKUserLocation {
+            //return nil so map view draws "blue dot" for standard user location
+            return nil
+        }
+        let reuseId = "pin"
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+        pinView?.canShowCallout = true
+        pinView?.animatesDrop = true
+        let smallSquare = CGSize(width: 30, height: 30)
+        let button = UIButton(frame: CGRect(origin: CGPoint.zero, size: smallSquare))
+        button.setBackgroundImage(UIImage(named: "route"), for: [])
+        button.addTarget(self, action:#selector(getDirections), for: .touchUpInside)
+        pinView?.leftCalloutAccessoryView = button
+        return pinView
     }
 }

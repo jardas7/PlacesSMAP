@@ -90,8 +90,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nt5-lG-5UN"/>
                     </view>
-                    <navigationItem key="navigationItem" id="sSg-gC-iT5"/>
+                    <navigationItem key="navigationItem" id="sSg-gC-iT5">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="userLoc" id="gNg-4L-kth">
+                            <connections>
+                                <action selector="showPosition:" destination="Jcy-WK-Qdr" id="erG-2J-9Zp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="btn" destination="gNg-4L-kth" id="772-Mf-nP7"/>
                         <outlet property="mapView" destination="3Ru-2i-7u7" id="GfS-fA-5lf"/>
                         <outlet property="searchDisplayController" destination="rNK-88-qGx" id="2NX-79-ZaH"/>
                     </connections>
@@ -171,11 +178,11 @@
             </objects>
             <point key="canvasLocation" x="-817" y="-722"/>
         </scene>
-        <!--Item 1-->
+        <!--Mapa-->
         <scene sceneID="9CN-F6-26b">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fFK-lV-Cjq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 1" id="GJ8-4K-I77"/>
+                    <tabBarItem key="tabBarItem" title="Mapa" image="map" id="GJ8-4K-I77"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PJ3-4J-Jrh">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -191,4 +198,8 @@
             <point key="canvasLocation" x="133.59999999999999" y="-1058.3208395802101"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="map" width="46" height="46.5"/>
+        <image name="userLoc" width="36" height="36"/>
+    </resources>
 </document>
