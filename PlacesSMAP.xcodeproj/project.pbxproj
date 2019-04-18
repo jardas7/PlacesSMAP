@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C203DF2C22689C0200874054 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C203DF2B22689C0200874054 /* MapViewController.swift */; };
-		C203DF2E22689CF900874054 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C203DF2D22689CF900874054 /* LocationSearchTable.swift */; };
+		C203DF2E22689CF900874054 /* LocationSearchTableOLD.swift in Sources */ = {isa = PBXBuildFile; fileRef = C203DF2D22689CF900874054 /* LocationSearchTableOLD.swift */; };
+		C203DF302268BC4900874054 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C203DF2F2268BC4900874054 /* LocationManager.swift */; };
+		C203DF322268C80400874054 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C203DF312268C80400874054 /* MapsViewController.swift */; };
+		C203DF362268CDA800874054 /* LocationSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C203DF352268CDA800874054 /* LocationSearch.swift */; };
 		C27EFC1722677CF9003C3395 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27EFC1622677CF9003C3395 /* AppDelegate.swift */; };
 		C27EFC1922677CF9003C3395 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27EFC1822677CF9003C3395 /* ViewController.swift */; };
 		C27EFC1C22677CF9003C3395 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27EFC1A22677CF9003C3395 /* Main.storyboard */; };
@@ -36,8 +38,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C203DF2B22689C0200874054 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		C203DF2D22689CF900874054 /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
+		C203DF2D22689CF900874054 /* LocationSearchTableOLD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableOLD.swift; sourceTree = "<group>"; };
+		C203DF2F2268BC4900874054 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		C203DF312268C80400874054 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
+		C203DF352268CDA800874054 /* LocationSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearch.swift; sourceTree = "<group>"; };
 		C27EFC1322677CF9003C3395 /* PlacesSMAP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlacesSMAP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27EFC1622677CF9003C3395 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C27EFC1822677CF9003C3395 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -107,8 +111,10 @@
 				C27EFC1D22677CFB003C3395 /* Assets.xcassets */,
 				C27EFC1F22677CFB003C3395 /* LaunchScreen.storyboard */,
 				C27EFC2222677CFB003C3395 /* Info.plist */,
-				C203DF2B22689C0200874054 /* MapViewController.swift */,
-				C203DF2D22689CF900874054 /* LocationSearchTable.swift */,
+				C203DF2D22689CF900874054 /* LocationSearchTableOLD.swift */,
+				C203DF2F2268BC4900874054 /* LocationManager.swift */,
+				C203DF312268C80400874054 /* MapsViewController.swift */,
+				C203DF352268CDA800874054 /* LocationSearch.swift */,
 			);
 			path = PlacesSMAP;
 			sourceTree = "<group>";
@@ -262,10 +268,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C203DF322268C80400874054 /* MapsViewController.swift in Sources */,
 				C27EFC1922677CF9003C3395 /* ViewController.swift in Sources */,
-				C203DF2C22689C0200874054 /* MapViewController.swift in Sources */,
+				C203DF302268BC4900874054 /* LocationManager.swift in Sources */,
 				C27EFC1722677CF9003C3395 /* AppDelegate.swift in Sources */,
-				C203DF2E22689CF900874054 /* LocationSearchTable.swift in Sources */,
+				C203DF362268CDA800874054 /* LocationSearch.swift in Sources */,
+				C203DF2E22689CF900874054 /* LocationSearchTableOLD.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
