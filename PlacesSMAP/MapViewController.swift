@@ -34,7 +34,6 @@ class MapsViewController: UIViewController {
         let region = MKCoordinateRegion(center: lokace, span: span)
         mapView.showsUserLocation = true
         mapView.setRegion(region, animated: true)
-        
     }
     
     @IBAction func naviguj(_ sender: UIBarButtonItem) {
