@@ -24,6 +24,12 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Pouziti mapy pri provozu</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Pouziti mapy</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Pouziti mapy porad</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
