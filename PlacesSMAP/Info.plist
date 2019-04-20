@@ -29,7 +29,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Pouziti mapy</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Pouziti mapy porad</string>
+	<string>Kvuli notifikacim</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

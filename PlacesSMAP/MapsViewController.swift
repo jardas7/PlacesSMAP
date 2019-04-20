@@ -9,20 +9,31 @@
 import Foundation
 import UIKit
 import MapKit
+import UserNotifications
+import CoreLocation
 
 protocol HandleMapSearch {
     func dropPinZoomIn(placemark:MKPlacemark)
 }
 
 
-class MapsViewController: UIViewController {
+class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
+    
     var resultSearchController:UISearchController? = nil
     let locationManager = CLLocationManager()
     
+    let notificationCenter = UNUserNotificationCenter.current()
+    
+
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var btn: UIBarButtonItem!
     var selectedPin:MKPlacemark? = nil
+    
+    struct GlobalVariable{
+        var zmacknuto : Int = 0
+    }
+    
     
     @IBAction func showPosition(_ sender: Any) {
         let span = MKCoordinateSpan(latitudeDelta: 0.015, longitudeDelta: 0.015)
@@ -35,14 +46,15 @@ class MapsViewController: UIViewController {
         mapCamera.altitude = 500 // example altitude
         mapCamera.heading = 45
         
+        
         // set the camera property
-        mapView.camera = mapCamera
-
+        mapView.setCamera(mapCamera, animated: true)
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        //locManager
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -68,6 +80,108 @@ class MapsViewController: UIViewController {
         
         locationSearch.mapView = mapView
         locationSearch.handleMapSearchDelegate = self
+        
+        //notifikace polohy
+        notificationCenter.delegate = self
+        notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            if granted {
+                print("Přístup byl povolen.")
+            }
+        }
+        locationManager.startUpdatingLocation()
+        
+        let center = UNUserNotificationCenter.current()
+        center.removeAllPendingNotificationRequests() // deletes pending scheduled notifications, there is a schedule limit qty
+        
+        // CSV soubor
+        var data = readDataFromCSV(fileName: "test", fileType: "csv")
+        data = cleanRows(file: data!)
+        let csvRows = csv(data: data!)
+        var i = 1
+        for radek in csvRows {
+            if i < csvRows.count {
+                
+                //limit je na 64 notifikací
+                let content = UNMutableNotificationContent()
+                content.title = "Našli jsme LPG ve Vašem okolí :)"
+                content.body = radek[3]
+                content.categoryIdentifier = "alarm"
+                content.sound = UNNotificationSound.default
+                
+                
+                let centerLoc = CLLocationCoordinate2D(latitude: Double(radek[1]) as! CLLocationDegrees, longitude: Double(radek[0]) as! CLLocationDegrees)
+                let region = CLCircularRegion(center: centerLoc, radius: 30.0, identifier: UUID().uuidString) // radius in meters
+                region.notifyOnEntry = true
+                region.notifyOnExit = false
+                let trigger = UNLocationNotificationTrigger(region: region, repeats: false)
+                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                center.add(request)
+                
+            }
+            i += 1
+            
+        }
+    }
+    
+    
+    // TODO
+    func showAnno (){
+        var data = readDataFromCSV(fileName: "test", fileType: "csv")
+        data = cleanRows(file: data!)
+        let csvRows = csv(data: data!)
+        
+        var i = 1
+        for radek in csvRows {
+            if i < csvRows.count {
+                 let annotation = MKPointAnnotation()
+                 annotation.title = radek[2]
+                 annotation.subtitle = radek[3]
+                 annotation.coordinate = CLLocationCoordinate2D(latitude: Double(radek[1]) as! CLLocationDegrees, longitude: Double(radek[0]) as! CLLocationDegrees)
+                mapView.addAnnotation(annotation)
+            }
+            i += 1
+        }
+    }
+    
+    func readDataFromCSV(fileName:String, fileType: String)-> String!{
+        guard let filepath = Bundle.main.path(forResource: fileName, ofType: fileType)
+            else {
+                return nil
+        }
+        do {
+            var contents = try String(contentsOfFile: filepath, encoding: .utf8)
+            contents = cleanRows(file: contents)
+            return contents
+        } catch {
+            print("File Read Error for file \(filepath)")
+            return nil
+        }
+    }
+    
+    func csv(data: String) -> [[String]] {
+        var result: [[String]] = []
+        let rows = data.components(separatedBy: "\n")
+        for row in rows {
+            let columns = row.components(separatedBy: ",")
+            result.append(columns)
+        }
+        return result
+    }
+    
+    func cleanRows(file:String)->String{
+        var cleanFile = file
+        cleanFile = cleanFile.replacingOccurrences(of: "\r", with: "\n")
+        cleanFile = cleanFile.replacingOccurrences(of: "\n\n", with: "\n")
+        //        cleanFile = cleanFile.replacingOccurrences(of: ";;", with: "")
+        //        cleanFile = cleanFile.replacingOccurrences(of: ";\n", with: "")
+        return cleanFile
+    }
+
+    
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        completionHandler([.alert, .sound])
     }
     
     @objc func getDirections(){
@@ -90,9 +204,10 @@ extension MapsViewController : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         guard let location = locations.first else { return }
-        let span = MKCoordinateSpan(latitudeDelta: 0.015, longitudeDelta: 0.015)
-        let region = MKCoordinateRegion(center: location.coordinate, span: span)
-        mapView.setRegion(region, animated: true)
+        //let span = MKCoordinateSpan(latitudeDelta: 0.015, longitudeDelta: 0.015)
+       // let region = MKCoordinateRegion(center: location.coordinate, span: span)
+        //mapView.setRegion(region, animated: true)
+        print("Inicializace")
         
     }
     
@@ -128,7 +243,7 @@ extension MapsViewController: HandleMapSearch {
         mapCamera.heading = 45
         
         // set the camera property
-        mapView.camera = mapCamera
+        mapView.setCamera(mapCamera, animated: true)
     }
 }
 
