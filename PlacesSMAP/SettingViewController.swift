@@ -2,7 +2,6 @@
 //  SettingViewController.swift
 //  PlacesSMAP
 //
-//  Created by Jaromír Hnik on 20/04/2019.
 //  Copyright © 2019 Jaromír Hnik. All rights reserved.
 //
 
@@ -23,13 +22,14 @@ class SettingsViewController: UIViewController {
         btnSwitched.isOn = false
     }
     
+    // Kontrola toho, jestli se state UISwitch změnil, abychom nevolali metodu pro vykreslení anotací dokola
     override func viewWillAppear(_ animated: Bool) {
         valueChanged = false
         defaults.set(valueChanged, forKey: "valueChanged")
     }
     
+    // Sledování chování UISwitch a předání do MapsView Controlleru
     @IBAction func btnPressed(_ sender: UISwitch) {
-        
         if (sender.isOn == true) {
             switchON = true
             defaults.set(switchON, forKey: "switchON")
@@ -41,7 +41,6 @@ class SettingsViewController: UIViewController {
             valueChanged = true
             defaults.set(valueChanged, forKey: "valueChanged")
         }
-       // print(mVC.tadyCounter)
     }
     
 }

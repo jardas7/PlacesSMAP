@@ -2,7 +2,6 @@
 //  AppDelegate.swift
 //  PlacesSMAP
 //
-//  Created by Jaromír Hnik on 17/04/2019.
 //  Copyright © 2019 Jaromír Hnik. All rights reserved.
 //
 
@@ -12,21 +11,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-    //func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-  //      completionHandler([.alert, .sound])
-  //  }
-    
-    //custom behavior
-  //  func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        
-  //      if response.notification.request.identifier == "testIdentifier" {
-            
-  //          print("handling test")
-  //      }
-        
-  //      completionHandler()
-  //  }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

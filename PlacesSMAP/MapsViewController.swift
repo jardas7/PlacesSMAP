@@ -2,7 +2,6 @@
 //  MapsViewController.swift
 //  PlacesSMAP
 //
-//  Created by Jaromír Hnik on 18/04/2019.
 //  Copyright © 2019 Jaromír Hnik. All rights reserved.
 //
 
@@ -21,7 +20,6 @@ class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     
     let defaults = UserDefaults.standard
-
     var tadyCounter = Int()
     
     var resultSearchController:UISearchController? = nil
@@ -36,6 +34,7 @@ class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
     var selectedPin:MKPlacemark? = nil
     
     
+    // Zoom na pozici uživatele
     @IBAction func showPosition(_ sender: Any) {
         let span = MKCoordinateSpan(latitudeDelta: 0.015, longitudeDelta: 0.015)
         let region = MKCoordinateRegion(center: mapView.userLocation.coordinate, span: span)
@@ -107,16 +106,16 @@ class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
         for radek in csvRows {
             if i < csvRows.count {
                 
-                //limit je na 64 notifikací
+                // limit je na 64 notifikací !
+                // Bez developerského programu nelze udělat push notifikace, kde tento limit není. Musel jsem se tedy zamyslet, jak to udělat jinak. Lze nastavit lokální notifikace tak, aby se program choval autonomně dle požadovaného zadání, pro další vývoj by bylo záhodno určitě zvážit napojení na firebase a s develop. accountem si osobně myslím, že nápad má veliký potenciál.
                 let content = UNMutableNotificationContent()
                 content.title = "Našli jsme LPG ve Vašem okolí :)"
                 content.body = radek[3]
                 content.categoryIdentifier = "alarm"
                 content.sound = UNNotificationSound.default
                 
-                
                 let centerLoc = CLLocationCoordinate2D(latitude: Double(radek[1]) as! CLLocationDegrees, longitude: Double(radek[0]) as! CLLocationDegrees)
-                let region = CLCircularRegion(center: centerLoc, radius: 250.0, identifier: UUID().uuidString) // radius in meters
+                let region = CLCircularRegion(center: centerLoc, radius: 250.0, identifier: UUID().uuidString)
                 region.notifyOnEntry = true
                 region.notifyOnExit = false
                 let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
@@ -131,6 +130,7 @@ class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     }
     
+    // Pokud se stav UI Switch změní, pak se změní chování (bylo to složitější, než se zdá)
     override func viewWillAppear(_ animated: Bool) {
         if defaults.value(forKey: "switchON") != nil && defaults.value(forKey: "valueChanged") != nil{
             let switchON: Bool = defaults.value(forKey: "switchON")  as! Bool
@@ -144,7 +144,7 @@ class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
         }
     }
     
-    // TODO
+    // Zobrazíme anotace pro daný soubor
     func showAnno (){
         print(tadyCounter)
        
@@ -212,6 +212,8 @@ class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
     }
 }
 
+
+// Načtení sledování polohy
 extension MapsViewController : CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -223,9 +225,6 @@ extension MapsViewController : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         guard let location = locations.first else { return }
-        //let span = MKCoordinateSpan(latitudeDelta: 0.015, longitudeDelta: 0.015)
-       // let region = MKCoordinateRegion(center: location.coordinate, span: span)
-        //mapView.setRegion(region, animated: true)
         print("Inicializace")
         
     }
@@ -236,11 +235,10 @@ extension MapsViewController : CLLocationManagerDelegate {
     
 }
 
+// Obsluha vyhledávání ze Search Baru
 extension MapsViewController: HandleMapSearch {
     func dropPinZoomIn(placemark:MKPlacemark){
-        // cache the pin
         selectedPin = placemark
-        // clear existing pins
         mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
@@ -258,18 +256,16 @@ extension MapsViewController: HandleMapSearch {
         let mapCamera = MKMapCamera()
         mapCamera.centerCoordinate = region.center
         mapCamera.pitch = 45
-        mapCamera.altitude = 500 // example altitude
+        mapCamera.altitude = 500
         mapCamera.heading = 45
-        
-        // set the camera property
         mapView.setCamera(mapCamera, animated: true)
     }
 }
 
+// Předělání chování pro PIN, nabídneme uživateli navigaci k danému bodu
 extension MapsViewController : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
         if annotation is MKUserLocation {
-            //return nil so map view draws "blue dot" for standard user location
             return nil
         }
         let reuseId = "pin"
