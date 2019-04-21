@@ -10,13 +10,153 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlacesSMAP/MapsViewController.swift"
-            timestampString = "577477505.8062021"
+            timestampString = "577570556.170662"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "10"
             endingLineNumber = "10"
             landmarkName = "unknown"
             landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlacesSMAP/MapsViewController.swift"
+            timestampString = "577570556.1708111"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "MapsViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlacesSMAP.MapsViewController.tadyCounter.getter : Swift.Int"
+                  moduleName = "PlacesSMAP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jaromirhnik/Documents/PlacesSMAP/PlacesSMAP/MapsViewController.swift"
+                  timestampString = "577565302.358593"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "128">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlacesSMAP.MapsViewController.tadyCounter.setter : Swift.Int"
+                  moduleName = "PlacesSMAP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jaromirhnik/Documents/PlacesSMAP/PlacesSMAP/MapsViewController.swift"
+                  timestampString = "577565302.3605551"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "176">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlacesSMAP.MapsViewController.tadyCounter.modify : Swift.Int"
+                  moduleName = "PlacesSMAP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jaromirhnik/Documents/PlacesSMAP/PlacesSMAP/MapsViewController.swift"
+                  timestampString = "577565302.362434"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlacesSMAP.MapsViewController.tadyCounter.modify : Swift.Int with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "PlacesSMAP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jaromirhnik/Documents/PlacesSMAP/PlacesSMAP/MapsViewController.swift"
+                  timestampString = "577565302.364279"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlacesSMAP.MapsViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; PlacesSMAP.MapsViewController"
+                  moduleName = "PlacesSMAP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jaromirhnik/Documents/PlacesSMAP/PlacesSMAP/MapsViewController.swift"
+                  timestampString = "577565302.366082"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "164">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlacesSMAP.MapsViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;PlacesSMAP.MapsViewController&gt;"
+                  moduleName = "PlacesSMAP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jaromirhnik/Documents/PlacesSMAP/PlacesSMAP/MapsViewController.swift"
+                  timestampString = "577565302.3677289"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "112">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlacesSMAP/MapsViewController.swift"
+            timestampString = "577570556.170871"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "viewWillAppear(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlacesSMAP/SettingViewController.swift"
+            timestampString = "577570556.170928"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "btnPressed(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

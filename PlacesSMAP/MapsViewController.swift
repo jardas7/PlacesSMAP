@@ -19,6 +19,11 @@ protocol HandleMapSearch {
 
 class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
+    
+    let defaults = UserDefaults.standard
+
+    var tadyCounter = Int()
+    
     var resultSearchController:UISearchController? = nil
     let locationManager = CLLocationManager()
     
@@ -29,10 +34,6 @@ class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     @IBOutlet weak var btn: UIBarButtonItem!
     var selectedPin:MKPlacemark? = nil
-    
-    struct GlobalVariable{
-        var zmacknuto : Int = 0
-    }
     
     
     @IBAction func showPosition(_ sender: Any) {
@@ -49,11 +50,14 @@ class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
         
         // set the camera property
         mapView.setCamera(mapCamera, animated: true)
+        print(tadyCounter)
     }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+            
         //locManager
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -90,6 +94,8 @@ class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
         }
         locationManager.startUpdatingLocation()
         
+        
+        
         let center = UNUserNotificationCenter.current()
         center.removeAllPendingNotificationRequests() // deletes pending scheduled notifications, there is a schedule limit qty
         
@@ -110,10 +116,10 @@ class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
                 
                 
                 let centerLoc = CLLocationCoordinate2D(latitude: Double(radek[1]) as! CLLocationDegrees, longitude: Double(radek[0]) as! CLLocationDegrees)
-                let region = CLCircularRegion(center: centerLoc, radius: 30.0, identifier: UUID().uuidString) // radius in meters
+                let region = CLCircularRegion(center: centerLoc, radius: 250.0, identifier: UUID().uuidString) // radius in meters
                 region.notifyOnEntry = true
                 region.notifyOnExit = false
-                let trigger = UNLocationNotificationTrigger(region: region, repeats: false)
+                let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
                 let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
                 center.add(request)
                 
@@ -121,11 +127,27 @@ class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
             i += 1
             
         }
+        
+    
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if defaults.value(forKey: "switchON") != nil && defaults.value(forKey: "valueChanged") != nil{
+            let switchON: Bool = defaults.value(forKey: "switchON")  as! Bool
+            let valueChanged: Bool = defaults.value(forKey: "valueChanged")  as! Bool
+            if switchON == true && valueChanged == true{
+                showAnno()
+            }
+            else if switchON == false && valueChanged == true{
+                mapView.removeAnnotations(mapView.annotations)
+            }
+        }
+    }
     
     // TODO
     func showAnno (){
+        print(tadyCounter)
+       
         var data = readDataFromCSV(fileName: "test", fileType: "csv")
         data = cleanRows(file: data!)
         let csvRows = csv(data: data!)
@@ -133,10 +155,10 @@ class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
         var i = 1
         for radek in csvRows {
             if i < csvRows.count {
-                 let annotation = MKPointAnnotation()
-                 annotation.title = radek[2]
-                 annotation.subtitle = radek[3]
-                 annotation.coordinate = CLLocationCoordinate2D(latitude: Double(radek[1]) as! CLLocationDegrees, longitude: Double(radek[0]) as! CLLocationDegrees)
+                let annotation = MKPointAnnotation()
+                annotation.title = radek[2]
+                annotation.subtitle = radek[3]
+                annotation.coordinate = CLLocationCoordinate2D(latitude: Double(radek[1]) as! CLLocationDegrees, longitude: Double(radek[0]) as! CLLocationDegrees)
                 mapView.addAnnotation(annotation)
             }
             i += 1
@@ -153,7 +175,7 @@ class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
             contents = cleanRows(file: contents)
             return contents
         } catch {
-            print("File Read Error for file \(filepath)")
+            print("Nepodařilo se načíst soubor \(filepath)")
             return nil
         }
     }
@@ -172,15 +194,12 @@ class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
         var cleanFile = file
         cleanFile = cleanFile.replacingOccurrences(of: "\r", with: "\n")
         cleanFile = cleanFile.replacingOccurrences(of: "\n\n", with: "\n")
-        //        cleanFile = cleanFile.replacingOccurrences(of: ";;", with: "")
-        //        cleanFile = cleanFile.replacingOccurrences(of: ";\n", with: "")
         return cleanFile
     }
 
     
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
         completionHandler([.alert, .sound])
     }
     
