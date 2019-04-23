@@ -109,13 +109,13 @@ class MapsViewController: UIViewController, UNUserNotificationCenterDelegate {
                 // limit je na 64 notifikací !
                 // Bez developerského programu nelze udělat push notifikace, kde tento limit není. Musel jsem se tedy zamyslet, jak to udělat jinak. Lze nastavit lokální notifikace tak, aby se program choval autonomně dle požadovaného zadání, pro další vývoj by bylo záhodno určitě zvážit napojení na firebase a s develop. accountem si osobně myslím, že nápad má veliký potenciál.
                 let content = UNMutableNotificationContent()
-                content.title = "Našli jsme LPG ve Vašem okolí :)"
+                content.title = "Našli jsme zajímavost ve Vašem okolí :)"
                 content.body = radek[3]
                 content.categoryIdentifier = "alarm"
                 content.sound = UNNotificationSound.default
                 
                 let centerLoc = CLLocationCoordinate2D(latitude: Double(radek[1]) as! CLLocationDegrees, longitude: Double(radek[0]) as! CLLocationDegrees)
-                let region = CLCircularRegion(center: centerLoc, radius: 250.0, identifier: UUID().uuidString)
+                let region = CLCircularRegion(center: centerLoc, radius: 50.0, identifier: UUID().uuidString)
                 region.notifyOnEntry = true
                 region.notifyOnExit = false
                 let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
